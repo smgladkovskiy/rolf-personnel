@@ -171,19 +171,12 @@ class Zend_View_Helper_AchievsPrintPersonal
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="compets-field-num"></td>
-									<th class="compets-field-description">Ваши примеры по достижению компетенций<div>Your examples to reach competences</div></td>
-									<th class="compets-field-term"></td>
-									<th class="compets-field-weight"></td>
-									<th class="compets-field-note"></td>
-									<th class="compets-field-result"></td>
-									<th class="compets-field-rating" style="border-left: 1px solid #999999;" >Рейтинг<div>Rating</div></td>
+									<th colspan="7" class="compets-field-description">Ваши примеры по достижению компетенций<div>Your examples to reach competences</div></td>
 								</tr>
     						</thead>
 							<tbody>
 								<tr>
-									<td colspan="6">' . $personalCompetence->result . '</td>
-									<td class="compets-field-rating" style="border-left: 1px solid #999999; >' . $ratings[$personalCompetence->rating_id] . '</td>
+									<td colspan="7">' . $personalCompetence->result . '</td>
 								</tr>
 							</tbody>
 						</table>';
