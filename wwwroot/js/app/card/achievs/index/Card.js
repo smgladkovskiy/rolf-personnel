@@ -762,9 +762,12 @@ var Card = new function()
 			this.setPlanTask3(rows[i]);
 		}
 
-		var rows = _personalAdditsCompets.rows;
-		for (var i = 0; i < rows.length; i++) {
-			this.setPlanTask3(rows[i]);
+		if(_personalAdditsCompets != null)
+		{
+			var rows = _personalAdditsCompets.rows;
+			for (var i = 0; i < rows.length; i++) {
+				this.setPlanTask3(rows[i]);
+			}
 		}
 
 		this.setEditPersonalCompetenceNotes();
