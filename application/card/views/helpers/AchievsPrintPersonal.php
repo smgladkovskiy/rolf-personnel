@@ -112,18 +112,22 @@ class Zend_View_Helper_AchievsPrintPersonal
 					</thead>
 				</table>';
 
-			$stands[] = '
-					<div class="compets-type">Корпоративные компетенции - <span class="translate_category_tasks">Corporate competences</span></div>
-					<table class="table">
-						<tbody>
-			';
-			$addits[] = '
-					<div class="compets-type">Компетенции группы должностей - <span class="translate_category_tasks">Job families competences</span></div>
-					<table class="table">
-						<tbody>
-			';
+		    $stands[] = ($card->period < 2013)
+			    ? '<div class="compets-type">Корпоративные компетенции - '.$card->period.'<span class="translate_category_tasks">Corporate competences</span></div>'
+			    : NULL;
+
+	        $stands[] = '
+	            <table class="table">
+	                <tbody>
+	        ';
+		    $addits[] = ($card->period < 2013)
+			    ? '<div class="compets-type">Компетенции группы должностей - <span class="translate_category_tasks">Job families competences</span></div>
+		            <table class="table">
+		                <tbody>'
+			    : NULL;
+
 			foreach ($competences as $item) {
-				if ((!$item['disabled'])) {
+				if (!$item['disabled']) {
 					if ($item['additional']) {
 						$addits[] = $this->_rowCompetence($item, $ratings, $in_person);
 					} else {
@@ -135,10 +139,10 @@ class Zend_View_Helper_AchievsPrintPersonal
 						</tbody>
 					</table>
 			';
-			$addits[] = '
-						</tbody>
-					</table>
-			';
+		    $addits[] = ($card->period < 2013)
+			    ? '</tbody></table>'
+			    : NULL
+		    ;
 
 			$xhtml[] = implode('', $stands) . implode('', $addits);
 
@@ -212,13 +216,7 @@ class Zend_View_Helper_AchievsPrintPersonal
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="tasks-field-description">Ваши комментарии по плану развития<div>Your development plan comments</td>
-									<th class="tasks-field-num"></td>
-									<th class="tasks-field-term"></td>
-									<th class="tasks-field-weight"></td>
-									<th class="tasks-field-note"></td>
-									<th class="tasks-field-result"></td>
-									<th class="tasks-field-rating"></td>
+									<th colspan="7" class="tasks-field-description">Ваши комментарии по плану развития<div>Your development plan comments</td>
 								</tr>
     						</thead>
 			    	<tr>
@@ -237,13 +235,7 @@ class Zend_View_Helper_AchievsPrintPersonal
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="tasks-field-description">Комментарий сотрудника<div>Employee comment</td>
-									<th class="tasks-field-num"></td>
-									<th class="tasks-field-term"></td>
-									<th class="tasks-field-weight"></td>
-									<th class="tasks-field-note"></td>
-									<th class="tasks-field-result"></td>
-									<th class="tasks-field-rating"></td>
+									<th colspan="7" class="tasks-field-description">Комментарий сотрудника<div>Employee comment</td>
 								</tr>
     						</thead>
 			    	<tr>
