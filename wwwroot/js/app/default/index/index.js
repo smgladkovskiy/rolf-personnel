@@ -7,37 +7,37 @@ var Toolbar = null;
 function init()
 {
 	document.body.onselectstart = function() {return false};
-	
+
 	main = new Main();
 	main.init();
-	
+
 	Toolbar = new Js.Toolbar('toolbar');
 	Toolbar.addItem({text: 'Персональная карточка<br/><span class="translate_menu">Personal Card</span>', onclick: toolbarItemCard}).addClassName('toolbar-item-card');
-	Toolbar.addItem({text: 'Управление достижениями<br/><span class="translate_menu">Achievement management</span>', onclick: toolbarItemAchievs}).addClassName('toolbar-item-achievs');
+	Toolbar.addItem({text: 'Performance management', onclick: toolbarItemAchievs}).addClassName('toolbar-item-achievs');
 	Toolbar.addItem({text: 'Обновить<br/><span class="translate_menu">Refresh</span>', onclick: toolbarItemRefresh}).addClassName('toolbar-item-refresh');
 	Toolbar.addItem({text: 'Справка<br/><span class="translate_menu">Info</span>', onclick: toolbarItemHelp}).addClassName('toolbar-item-help');
-	
+
 	if (have_integrate == 1)
 		Toolbar.addItem({text: 'Совместители<br/><span class="translate_menu">Integrate</span>', onclick: toolbarItemIntegrate}).addClassName('toolbar-item-integrate');
-	
+
 	menu = new Js.Tree('menu', true);
 	menu.onselect = menuOnselect;
 	menu.onexpand = menuOnexpand;
 	// id - id ветки, pid - id родительской ветки, text - название ветки
 	menu.addNode({id : 'card', text : User.fullname}).addClassNames('tree-node-card');
-	menu.addNode({id : 'achievs', pid : 'card', text : 'Управление достижениями - Achievement management'}).addClassNames('tree-node-achievs');
+	menu.addNode({id : 'achievs', pid : 'card', text : 'Performance management'}).addClassNames('tree-node-achievs');
 	menu.addNode({id : 'personal', pid : 'card', text : 'Персональная информация - Personal data'}).addClassNames('tree-node-personal');
 	menu.addNode({id : 'emps', text : 'Подчиненные сотрудники - Subordinate employees'}).addClassNames({branch : 'tree-branch-emps'});
 	menu.addNode({id : 'people', pid : 'emps', text : 'Непосредственные подчиненные - Direct subordinates'});
 	menu.addNode({id : 'subpeople', pid : 'emps', text : 'Подчиненные подчиненных - Subordinates of subordinates'});
-	
+
 	menu.addNode({id : 'func', text : 'Функциональные подчиненные - Functional subordinates'}).addClassNames({branch : 'tree-branch-func'});
 	menu.addNode({id : 'funcpeople', pid : 'func', text : 'Функциональные подчиненные - Functional subordinates'});
-	
+
 	menu.addNode({id : 'subposts', text : 'Подчиненные должности - Subordinate appointments'}).addClassNames({branch : 'tree-branch-posts'});
 	menu.addNode({id : 'viewposts', text : 'Просматриваемые должности - Appointments displayed'}).addClassNames({branch : 'tree-branch-posts'});
 	menu.expandAllNodes();
-	
+
 	loadBranchPosts('subposts', User.subposts);		// загружаем список должностей подчиненных должностей в дерево
 	var posts = User.viewposts;
 	for (var key in posts) {
@@ -53,7 +53,7 @@ function menuOnselect(node)
 	var text = node.text;
 	var className = '';
 	var url = BASE_URL;
-	
+
 	if (id > 0) {
 		text = 'Подчиненные должности : список сотрудников - Subordinate appointments : list of employees';
 		className = 'caption-people';
@@ -69,34 +69,34 @@ function menuOnselect(node)
 				className = 'caption-card';				// ветка карточки сотрудника с полным именем
 				url += '/card/index/index/personid/' + User.personId;
 				break;
-				
-			case 'achievs':								// ветка Управление достижениями
+
+			case 'achievs':								// ветка Performance management
 				className = 'caption-achievs';
 				url += '/card/achievs/index/personid/' + User.personId;
 				break;
-				
+
 			case 'personal':
 				className = 'caption-personal';			// ветка Персональная информация
 				url += '/card/personal/index/personid/' + User.personId;
 				break;
-			
+
 			case 'people':								// Ветки подчиненных и подчиненных подчиненных
 			case 'subpeople':
 			case 'funcpeople':
 				className = 'caption-people';
 				url += '/default/index/menu/id/' + id;	// передаем id ветки, которую выбрали в контроллер default/IndexController действие menuAction
 				break;									// id равен people или subpeople
-				
+
 			default:
 				url += '/default/empty';
 				break;
 		}
 	}
-	
+
 	if (url == BASE_URL) {
 		return false;
 	}
-	
+
 	main.container.setCaption(text);
 	main.container.setCaptionClass(className);
 	main.container.replace(url);
