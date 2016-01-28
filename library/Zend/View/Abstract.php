@@ -971,7 +971,7 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
         // check to see if name => class mapping exists for helper/filter
         $classLoaded = '_' . $type . 'Loaded';
         $classAccess = '_set' . ucfirst($type) . 'Class';
-        if (isset($this->$classLoaded[$name])) {
+        if (array_key_exists($name, $this->$classLoaded) AND isset($this->$classLoaded[$name])) {
             return $this->$classLoaded[$name];
         }
 

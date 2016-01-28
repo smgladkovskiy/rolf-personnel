@@ -16,6 +16,7 @@ class Card_AchievsController extends Zend_Controller_Action
 
 		$cards = new Rp_Db_Table_Ach_Cards();
 		$id = $request->getParam('id', null);
+
 		if ($id !== null) {
 			$card = $cards->find($id)->current();
 			if (empty($card)) {
@@ -27,8 +28,8 @@ class Card_AchievsController extends Zend_Controller_Action
 			$card = $cards->findByPersonIdAndPeriod($personId, $period);
 		}
 
-		$user = Rp_User::getInstance();
-		$emp = $card->getEmployee();
+		$user   = Rp_User::getInstance();
+		$emp    = $card->getEmployee();
 		$person = $emp->getPerson();
 
 		$periods = range(2006, date('Y') + 1);
