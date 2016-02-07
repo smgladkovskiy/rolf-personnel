@@ -44,11 +44,11 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 			throw new Exception('Период карточки должен быть целым числом.');
 		}
 
-		$cardId = $this->insert(array(
+		$this->insert(array(
 			'person_id' => $personId,
 			'period'    => $period
 		));
-		return $this->find($cardId)->current();
+		return self::findByPersonIdAndPeriod($personId, $period);
 	}
 
 	/**
@@ -62,16 +62,17 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 	 *
 	 * @return Rp_Db_Table_Row_Ach_Card
 	 */
-	public function findByPersonIdAndPeriod($personId, $period)
+	public static function findByPersonIdAndPeriod($personId, $period)
 	{
-		$db = $this->getAdapter();
+		$model = new self;
+		$db = $model->getAdapter();
 
 		$where  = 'person_id = ' . $db->quote($personId);
 		$where .= ' AND period = ' . $db->quote($period);
 
-		$rowCard = $this->fetchRow($where);
+		$rowCard = $model->fetchRow($where);
 		if (empty($rowCard)) {
-			$rowCard = $this->createCard($personId, $period);
+			$rowCard = $model->createCard($personId, $period);
 		}
 		return $rowCard;
 	}

@@ -25,7 +25,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		} else {
 			$personId = $request->getParam('personid', null);
 			$period = $request->getParam('period', date('Y'));
-			$card = $cards->findByPersonIdAndPeriod($personId, $period);
+			$card = Rp_Db_Table_Ach_Cards::findByPersonIdAndPeriod($personId, $period);
 		}
 
 		$user   = Rp_User::getInstance();

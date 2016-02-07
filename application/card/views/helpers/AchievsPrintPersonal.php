@@ -128,7 +128,7 @@ class Zend_View_Helper_AchievsPrintPersonal
 
 			foreach ($competences as $item) {
 				if (!$item['disabled']) {
-					if ($item['additional']) {
+					if ($card->period < 2016 and $item['additional']) {
 						$addits[] = $this->_rowCompetence($item, $ratings, $in_person);
 					} else {
 						$stands[] = $this->_rowCompetence($item, $ratings, $in_person);

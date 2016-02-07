@@ -141,7 +141,7 @@ class Zend_View_Helper_AchievsFormPersonal
 				: NULL;
 			foreach ($competences as $item) {
 				if ((!$item['disabled'])) {
-					if ($item['additional']) {
+					if ($period < 2016 and $item['additional']) {
 						$addits[] = $this->_rowCompetence($item, $ratings, $in_person);
 					} else {
 						$stands[] = $this->_rowCompetence($item, $ratings, $in_person);

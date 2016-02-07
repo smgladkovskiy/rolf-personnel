@@ -57,7 +57,7 @@ class Zend_View_Helper_AchievsPrintCompetences
 	        : NULL;
     	foreach ($competences as $item) {
     		if (!$item['disabled']) {
-    			if ($item['additional']) {
+    			if ($period < 2016 and $item['additional']) {
 					$addits[] = $this->_rowCompetence($item, $ratings);
 				} else {
 					$stands[] = $this->_rowCompetence($item, $ratings);
