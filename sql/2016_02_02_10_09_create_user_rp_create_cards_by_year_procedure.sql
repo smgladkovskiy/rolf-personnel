@@ -7,7 +7,7 @@ go
  *
  * @created 02.02.2016 by SMGladkovskiy@gmail.com
  */
-alter procedure [dbo].[user_rp_create_cards_by_year] @period INT
+create procedure [dbo].[user_rp_create_cards_by_year] @period INT
 
 as -- обьявляем курсор
   declare personIdCursor cursor
